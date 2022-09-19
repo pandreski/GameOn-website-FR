@@ -11,10 +11,8 @@
 /* Landing Page */
 
 body {
-  margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -120,7 +118,6 @@ main {
   background: #fe142f;
   display: flex;
   margin: auto;
-  padding: 2em;
   color: #fff;
   padding: 0.75rem 2.5rem;
   border-radius: 1rem;
@@ -336,7 +333,7 @@ input[data-error]::after {
 /* custom select styles */
 .custom-select {
   position: relative;
-  font-family: Arial;
+  font-family: var(--font-default);
   font-size: 1.1rem;
   font-weight: normal;
 }
