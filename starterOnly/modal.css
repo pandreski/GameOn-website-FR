@@ -2,6 +2,7 @@
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
+  --color-primary: #FE142F;
 }
 * {
   box-sizing: border-box;
@@ -19,6 +20,10 @@ body {
   margin: 0 auto;
 }
 
+iframe[name="frame"] {
+  display: none;
+}
+
 p {
   margin-bottom: 0;
   padding: 0.5vw;
@@ -29,12 +34,15 @@ img {
 }
 
 .topnav {
-  overflow: hidden;
-  margin: 3.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px;
 }
 .header-logo {
     float: left;
 }
+
 .main-navbar {
     float: right;
 }
@@ -46,20 +54,34 @@ img {
   padding: 12px 12px;
   margin: 5px;
   text-decoration: none;
-  font-size: 20px;
-  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  font-family: var(--font-default);
+  border-radius: 15px;
+  background-color: transparent;
+  transition: all .2s ease-in-out;
 }
 
 .topnav a:hover {
-  background-color: #ff0000;
+  background-color: var(--color-primary);
   color: #ffffff;
-  border-radius: 15px;
 }
 
 .topnav a.active {
-  background-color: #ff0000;
+  background-color: var(--color-primary);
   color: #ffffff;
   border-radius: 15px;
+  position: relative;
+}
+
+.topnav a.active:before {
+  content: '';
+  position: absolute;
+  bottom: 9px;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background-color: #fff;
+  transition: background-color .3s ease-in-out;
 }
 
 .topnav .icon {
@@ -67,14 +89,21 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+  .topnav {
+    align-items: flex-start;
+  }
   .topnav a {display: none;}
   .topnav a.icon {
-    float: right;
     display: block;
+    color: var(--color-primary);
+    padding: 0;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .main-navbar > a:first-child {
+    margin-top: 30px;
+  }
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -86,16 +115,16 @@ img {
     display: block;
     text-align: left;
   }
+
+  .topnav .icon:focus, .topnav .icon:hover {
+    background-color: transparent;
+  }
 }
-
-
 
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
-    float: right;
     display: block;
-    margin-top: -15px;
   }
 } 
 
@@ -103,29 +132,18 @@ main {
   font-size: 130%;
   font-weight: bolder;
   color: black;
-  padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  margin: 1px 20px 15px;
+  margin: 0 30px;
   border-radius: 2rem;
-  text-align: justify;
-
-
 }
 
 .modal-btn {
   font-size: 145%;
-  background: #fe142f;
   display: flex;
   margin: auto;
   color: #fff;
   padding: 0.75rem 2.5rem;
   border-radius: 1rem;
   cursor: pointer;
-}
-
-.modal-btn:hover {
-  background: #3876ac;
 }
 
 .footer {
@@ -137,17 +155,18 @@ main {
 /* Modal form */
 
 .button {
-  background: #fe142f;
+  background-color: var(--color-primary);
   margin-top: 0.5em;
   padding: 1em;
   color: #fff;
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color .2s ease-in-out;
 }
 
 .button:hover {
-  background: #3876ac;
+  background-color: #3876ac;
 }
 
 .smFont {
@@ -185,6 +204,26 @@ main {
   margin: 15px auto;
 }
 
+.confirmation {
+  display: none;
+  flex-direction: column;
+}
+
+.confirmation__message {
+  text-align: center;
+  padding: 20vh 0;
+}
+
+.error-message {
+  font-size: 10px;
+  color: var(--color-primary);
+  margin-top: 5px;
+}
+
+input.form-error {
+  border: 1px solid var(--color-primary);
+}
+
 label {
   font-family: var(--font-default);
   font-size: 17px;
@@ -194,7 +233,7 @@ label {
 }
 input {
   padding: 8px;
-  border: 0.8px solid #ccc;
+  border: 1px solid #ccc;
   outline: none;
 }
 .text-control {
@@ -223,18 +262,12 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
 .checkbox-label,
 .checkbox2-label {
   position: relative;
-  margin-left: 36px;
   font-size: 12px;
   font-weight: normal;
+  padding-left: 25px;
 }
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
@@ -246,8 +279,8 @@ input[data-error]::after {
   text-indent: 29px;
   white-space: nowrap;
   position: absolute;
-  left: -30px;
-  top: -1px;
+  left: 0;
+  top: -2px;
   transition: 0.3s;
 }
 .checkbox-label .checkbox-icon::after,
@@ -320,16 +353,16 @@ input[data-error]::after {
 }
 .btn-submit,
 .btn-signup {
-  background: #fe142f;
   display: block;
   margin: 0 auto;
   border-radius: 7px;
   font-size: 1rem;
-  padding: 12px 82px;
+  padding: 12px 62px;
   color: #fff;
   cursor: pointer;
   border: 0;
 }
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -354,8 +387,8 @@ input[data-error]::after {
   width: 11px;
   height: 11px;
   border: 3px solid transparent;
-  border-bottom-color: #f00;
-  border-left-color: #f00;
+  border-bottom-color: var(--color-primary);
+  border-left-color: var(--color-primary);
   transform: rotate(-48deg);
   border-radius: 5px 0 5px 0;
 }
@@ -402,13 +435,13 @@ input[data-error]::after {
   font-size: 16px;
 }
 .hero-section {
+  margin-top: 80px;
   min-height: 93vh;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   overflow: hidden;
-  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
+  box-shadow: 0 12px 12px rgba(0, 0, 0, 0.25);
 }
 .hero-content {
   padding: 51px 67px;
@@ -433,9 +466,9 @@ input[data-error]::after {
   z-index: 1;
 }
 .hero-headline {
-  font-size: 6rem;
+  font-size: 96px;
   font-weight: normal;
-  white-space: nowrap;
+  width: 887px;
 }
 .hero-text {
   width: 146%;
@@ -459,9 +492,10 @@ input[data-error]::after {
   height: 100%;
   display: block;
   padding: 0;
+  object-fit: cover;
 }
 .copyrights {
-  color: #fe142f;
+  color: var(--color-primary);
   padding: 0;
   font-size: 1rem;
   margin: 60px 0 30px;
@@ -477,13 +511,15 @@ footer {
 }
 @media screen and (max-width: 800px) {
   .hero-section {
+    margin-top: 0;
     display: block;
     box-shadow: unset;
   }
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
+    min-width: unset;
   }
   .hero-content::after {
     content: unset;
@@ -492,12 +528,13 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
-    white-space: normal;
+    font-size: 40px;
+    width: unset;
   }
   .hero-text {
     width: unset;
-    font-size: 1.5rem;
+    font-size: 13px;
+    margin-top: 20px;
   }
   .hero-img img {
     border-radius: 10px;
@@ -508,9 +545,40 @@ footer {
     margin: 32px auto 10px;
     padding: 12px 35px;
   }
+
+  .modal-body label,
+  .text-label {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .locations {
+    margin-bottom: 10px;
+  }
+
+  .locations label {
+    font-size: 12px;
+    margin-right: 5px;
+  }
+
   .copyrights {
-    margin-top: 50px;
+    margin-top: 30px;
     text-align: center;
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 801px) and (max-width: 940px) {
+  .hero-headline {
+    width: 660px;
+    font-size: 76px;
+  }
+}
+
+@media screen and (max-width: 1030px) {
+  .header-logo img {
+    max-width: 103px;
   }
 }
 

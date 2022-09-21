@@ -8,10 +8,11 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
+const modalForm = document.querySelector('.modal-body form');
+const modalSuccessMessage = document.querySelector('.modal-body .confirmation');
+const modalBg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-// const formData = document.querySelectorAll(".formData");
-const closeModalBtn = modalbg.querySelector(".close");
+const closeModalBtn = modalBg.querySelectorAll(".close-modal");
 const regex_numbers = /^[0-9]+$/;
 const regex_email =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -20,15 +21,15 @@ modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
 
 // launch modal form
 function launchModal() {
-  modalbg.style.display = 'block';
+  modalBg.style.display = 'block';
 }
 
 // close modal event
-closeModalBtn.addEventListener('click', closeModal);
+closeModalBtn.forEach((btn) => btn.addEventListener('click', closeModal));
 
 // close modal form
 function closeModal() {
-  modalbg.style.display = 'none';
+  modalBg.style.display = 'none';
 }
 
 // get sibling element of a node, identified by a class
@@ -123,7 +124,6 @@ function validate() {
   }
 
   // check if location selection is filled
-  console.log(hasSelectedLocation());
   if (!hasSelectedLocation()) {
     locations.querySelector('.error-message').innerHTML = 'Vous devez choisir une option.';
     state = false;
@@ -132,6 +132,12 @@ function validate() {
   // check if legal notice is approved
   if (!legalNotice.checked) {
     setErrorMessage(legalNotice, 'Vous devez vérifier que vous acceptez les termes et conditions.');
+  }
+
+  // in case of success, hide form and display success message
+  if (state) {
+    modalForm.style.display = 'none';
+    modalSuccessMessage.style.display = 'flex';
   }
 
   return state;
