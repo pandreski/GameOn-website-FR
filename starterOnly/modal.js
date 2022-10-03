@@ -103,22 +103,26 @@ function validate() {
   // check email field
   if (email.value.length > 0) {
     if (!(email.value.match(regex_email))) {
+      email.classList.add('form-error');
       setErrorMessage(email, 'L\'adresse e-mail n\'est pas valide.');
       state = false;
     }
   } else {
+    email.classList.add('form-error');
     setErrorMessage(email, 'Ce champ est requis.');
     state = false;
   }
 
   // check birthdate field
   if (!(birthdate.value.length > 0)) {
+    birthdate.classList.add('form-error');
     setErrorMessage(birthdate, 'Vous devez entrer votre date de naissance.');
     state = false;
   }
 
   // check if quantity input is a number
   if (quantity.value.length === 0 || !(quantity.value.match(regex_numbers))) {
+    quantity.classList.add('form-error');
     setErrorMessage(quantity, 'Veuillez entrer un nombre valide.');
     state = false;
   }
