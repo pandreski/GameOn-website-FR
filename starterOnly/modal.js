@@ -30,6 +30,8 @@ closeModalBtn.forEach((btn) => btn.addEventListener('click', closeModal));
 // close modal form
 function closeModal() {
   modalBg.style.display = 'none';
+  modalForm.style.display = 'block';
+  modalSuccessMessage.style.display = 'none';
 }
 
 // get sibling element of a node, identified by a class
@@ -136,12 +138,14 @@ function validate() {
   // check if legal notice is approved
   if (!legalNotice.checked) {
     setErrorMessage(legalNotice, 'Vous devez vérifier que vous acceptez les termes et conditions.');
+    state = false;
   }
 
-  // in case of success, hide form and display success message
+  // In case of success, hide form, display success message and reset all fields to get ready for a new submission.
   if (state) {
     modalForm.style.display = 'none';
     modalSuccessMessage.style.display = 'flex';
+    modalForm.reset();
   }
 
   return state;

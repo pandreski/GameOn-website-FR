@@ -273,6 +273,7 @@ input {
   font-size: 12px;
   font-weight: normal;
   padding-left: 25px;
+  cursor: pointer;
 }
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
@@ -507,9 +508,7 @@ input {
   margin: 60px 0 30px;
   font-weight: bolder;
 }
-.hero-section > .btn-signup {
-  display: none;
-}
+
 footer {
   padding-left: 2vw;
   padding-right: 2vw;
@@ -520,18 +519,29 @@ footer {
     margin-top: 0;
     display: block;
     box-shadow: unset;
+    position: relative;
+    padding-bottom: 80px;
   }
   .hero-content {
     background: #fff;
     color: #000;
     padding: 0;
     min-width: unset;
+    position: initial;
   }
   .hero-content::after {
     content: unset;
   }
   .hero-content .btn-signup {
-    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    padding: 12px 35px;
+    width: max-content;
   }
   .hero-headline {
     font-size: 40px;
@@ -546,12 +556,6 @@ footer {
     border-radius: 10px;
     margin-top: 40px;
   }
-  .hero-section > .btn-signup {
-    display: block;
-    margin: 32px auto 10px;
-    padding: 12px 35px;
-  }
-
   .modal-body label,
   .text-label {
     font-size: 14px;
