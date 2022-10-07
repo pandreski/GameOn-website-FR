@@ -7,6 +7,11 @@ function editNav() {
   }
 }
 
+document.querySelector('.main-navbar .icon').addEventListener('click', function (oEvt) {
+  oEvt.preventDefault();
+  editNav();
+});
+
 // DOM Elements
 const modalForm = document.querySelector('.modal-body form');
 const modalSuccessMessage = document.querySelector('.modal-body .confirmation');
@@ -150,3 +155,5 @@ function validate() {
 
   return state;
 }
+
+modalForm.querySelector('input[type="submit"]').addEventListener('click', validate);
